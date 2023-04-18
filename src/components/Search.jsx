@@ -3,8 +3,14 @@ import React from "react";
 class Search extends React.Component {
     state = {
         search: '',
-
     }
+
+    handleKey = (event) => {
+        if (event.key === 'Enter') {
+            this.props.searchMovies(this.state.search);
+        }
+    }
+
 
     render() {
         return <div className="row">
@@ -14,7 +20,12 @@ class Search extends React.Component {
                     placeholder="search" 
                     type="search" 
                     value={this.state.search} 
-                    onChange={(e) => this.setState({search: e.target.value})}/>
+                    onChange={(e) => this.setState({search: e.target.value})}
+                    onKeyDown={this.handleKey}/>
+                <button 
+                    onClick={() => this.props.searchMovies(this.state.search)}
+                    className="btn search-btn"
+                >Search</button>
             </div>
         </div>
     }

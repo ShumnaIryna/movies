@@ -9,7 +9,13 @@ class Main extends React.Component {
     }
 
     componentDidMount() {
-        fetch(`http://www.omdbapi.com/?apikey=9b9eec36&s=matrix`)
+        fetch('http://www.omdbapi.com/?apikey=9b9eec36&s=matrix')
+            .then((response) => response.json())
+            .then((data) => this.setState({movies: data.Search}))
+    }
+
+    searchMovies = (str) => {
+        fetch(`http://www.omdbapi.com/?apikey=9b9eec36&s=${str}`)
             .then((response) => response.json())
             .then((data) => this.setState({movies: data.Search}))
     }
@@ -17,7 +23,7 @@ class Main extends React.Component {
     render() {
         const {movies} = this.state;
         return <main className="container content">
-            <Search/>
+            <Search searchMovies={this.searchMovies}/>
             
             {
                 movies ? (
